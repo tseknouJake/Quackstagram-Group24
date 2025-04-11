@@ -1,0 +1,73 @@
+//FORMAT : unkown still since currently unused
+//new format: mainUser, subUser, type, datetime
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,newUser,follow,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,newUser,follow,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,newUser,follow,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,newUser,follow,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+jake,newUser,follow,2025-01-01 12:12:12
+jake,shaked,like,2018-12-12 12:12:12
+jake,pp,like,2025-01-01 12:12:12
+SHA,jake,like,2025-02-27T22:36:28.079212
+SHA,jake,follow,2025-02-27T22:52:44.663064
+jake,SHA,like,2025-02-27T22:58:37.014984
+jake,SHA,follow,2025-02-27T22:58:39.789248
+shaked,SHA,like,2025-02-28T07:10:25.299214900
+shaked,SHA,follow,2025-02-28T07:10:30.096624900
+shaked,NOOOA,like,2025-02-28T07:11:35.385532800
+shaked,NOOOA,follow,2025-02-28T07:11:38.432862
+jake,NOOOA,like,2025-02-28T11:17:42.781522400
+jake,NOOOA,like,2025-02-28T11:17:55.825978900
+jake,NOOOA,like,2025-02-28T11:17:59.847833100
+SHA,shaked,like,2025-02-28T12:26:30.293981500
+SHA,shaked,like,2025-02-28T12:26:33.680855500
+SHA,jake,like,2025-03-07T09:34:31.129405
+SHA,jake,like,2025-03-07T09:34:35.591075
+SHA,jake,like,2025-03-07T09:34:37.453353
+SHA,jake,like,2025-03-07T09:34:38.589202
+SHA,jake,like,2025-03-07T09:39:58.289876
+SHA,jake,like,2025-03-07T09:40:05.936765
+SHA,jake,like,2025-03-07T09:41:36.856979
+SHA,jake,like,2025-03-07T09:41:40.529404
+SHA,jake,like,2025-03-07T09:41:44.315651
+SHA,jake,like,2025-03-07T09:41:45.962919
+SHA,jake,like,2025-03-07T09:41:49.116769
+SHA,jake,like,2025-03-07T09:41:52.299990
+SHA,jake,like,2025-03-07T09:41:53.983352
+SHA,jake,like,2025-03-07T09:41:55.229089
+SHA,jake,like,2025-03-07T09:42:55.226613
+SHA,jake,like,2025-03-07T09:42:57.395667
+SHA,jake,like,2025-03-07T09:43:00.529474
+SHA,jake,like,2025-03-07T09:43:03.545029
+SHA,jake,like,2025-03-07T09:43:11.947496
+SHA,jake,like,2025-03-07T09:43:14.574052
+SHA,jake,like,2025-03-07T09:43:16.994037
+SHA,jake,like,2025-03-07T09:43:18.443613
+SHA,jake,like,2025-03-07T09:44:35.060279
+SHOOKAD,jake,like,2025-03-07T09:53:24.610263
+SHA,jake,like,2025-03-07T09:53:34.344425
+SHA,jake,like,2025-03-07T09:53:37.895126
+SHA,jake,like,2025-03-07T09:53:41.042973
+SHA,jake,like,2025-03-07T09:53:42.609387
+SHA,jake,like,2025-03-07T09:54:57.088879
+SHA,jake,like,2025-03-07T09:58:13.965627
+SHA,jake,like,2025-03-10T08:33:41.681562800
+jake,jake,like,2025-03-10T08:34:24.806531100
+shaked,SHA,like,2025-03-10T19:12:25.609771600
