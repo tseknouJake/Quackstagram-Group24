@@ -21,6 +21,8 @@ public class DB {
     public static final Table<Post> POSTS;
     public static final Table<Notification> NOTIFICATIONS;
     public static final Table<Following> FOLLOWERS;
+//    public static final Table<Likes> LIKES;
+
     // … any other tables …
 
     static {
@@ -29,7 +31,10 @@ public class DB {
             POSTS = new TableDB<>("posts", new PostParser());
             NOTIFICATIONS = new TableDB<>("notifications", new NotificationParser());
             FOLLOWERS = new TableDB<>("followers", new FollowParser());
+            //TODO: check this out im not sure how we do the likes...
             // if you have a “likes” table and parser, do that too
+
+
         } catch (Exception e) {
             throw new RuntimeException("DB init failed", e);
         }
