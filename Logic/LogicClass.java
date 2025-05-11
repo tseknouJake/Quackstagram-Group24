@@ -25,7 +25,7 @@ public abstract class LogicClass {
     }
     
     /**
-     * Fetches the current user from DB.CURR_USER 
+     * Fetches the current user from DB
      * @return the User object of the current user
      */
     public static User getCurrUser(){

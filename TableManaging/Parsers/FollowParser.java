@@ -11,6 +11,7 @@ public class FollowParser implements Parser<Following>{
     
     @Override
     public Following parseRow(String csvLine) {
+        //TODO: turn into SQL
         String[] csvList = csvLine.split(",");
         
         String username = csvList[0];

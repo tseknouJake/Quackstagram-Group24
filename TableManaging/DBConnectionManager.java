@@ -10,6 +10,24 @@ public class DBConnectionManager {
     private static final String USER     = "root";
     private static final String PASSWORD = "";
 
+    public static void main(String[] args) {
+        System.out.println("Attempting to connect to database…");
+        try (Connection c = DBConnectionManager.getConnection()) {
+            if (c != null && !c.isClosed()) {
+                System.out.println("✅ Connection successful!");
+                // Optional: print some metadata
+                System.out.println("Database product: " +
+                        c.getMetaData().getDatabaseProductName() + " " +
+                        c.getMetaData().getDatabaseProductVersion());
+            } else {
+                System.out.println("❌ Connection returned a closed or null object.");
+            }
+        } catch (SQLException e) {
+            System.err.println("❌ Failed to connect:");
+            e.printStackTrace();
+        }
+    }
+
     private static Connection conn;
 
     private DBConnectionManager() { }

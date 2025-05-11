@@ -66,7 +66,7 @@ public class User{
     public int getFollowersCount() { return followersCount; }
     public int getFollowingCount() { return followingCount; }
     public String getProfilePicPath() { return profilePicPath; }
-    private String getPassword() { return password; }
+    public String getPassword() { return password; }
 
 
     /**

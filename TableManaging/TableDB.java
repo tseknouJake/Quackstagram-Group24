@@ -2,73 +2,99 @@ package TableManaging;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.function.Predicate;
-import TableManaging.Parsers.Parser;
+import java.util.List;
+
+import TableManaging.DAOs.RowMapper;
+import TableManaging.DAOs.StatementBinder;
 
 public class TableDB<T> implements Table<T> {
     private final Connection conn;
     private final String tableName;
-    private final Parser<T> parser;
+    private final RowMapper<T> mapper;
+    private final StatementBinder<T> binder;
 
-    public TableDB(String tableName, Parser<T> parser) throws SQLException {
+    public TableDB(String tableName,
+                   RowMapper<T> mapper,
+                   StatementBinder<T> binder) throws SQLException {
         this.conn = DBConnectionManager.getConnection();
         this.tableName = tableName;
-        this.parser = parser;
+        this.mapper = mapper;
+        this.binder = binder;
     }
 
-    @Override
-    public ArrayList<T> fetchRows(Predicate<T> condition) {
-        var rows = new ArrayList<T>();
-        String sql = "SELECT * FROM " + tableName;
-        try (var stmt = conn.createStatement();
-             var rs   = stmt.executeQuery(sql)) {
-            var md = rs.getMetaData();
-            int cols = md.getColumnCount();
-            while (rs.next()) {
-                // build a CSV string that Parser can consume:
-                var sb = new StringBuilder();
-                for (int i = 1; i <= cols; i++) {
-                    sb.append(rs.getString(i) != null ? rs.getString(i) : "");
-                    if (i < cols) sb.append(",");
-                }
-                T obj = parser.parseRow(sb.toString());
-                if (condition == null || condition.test(obj)) {
-                    rows.add(obj);
+
+    public List<T> fetchAll(String whereClause, Object... params) {
+        var results = new ArrayList<T>();
+        String sql = "SELECT * FROM " + tableName
+                + (whereClause != null && !whereClause.isBlank()
+                ? " WHERE " + whereClause
+                : "");
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            // bind any WHERE parameters
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i + 1, params[i]);
+            }
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    results.add(mapper.mapRow(rs));
                 }
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            throw new RuntimeException("fetchAll failed", ex);
         }
-        return rows;
+        return results;
     }
 
-    @Override
-    public void insertRow(T row, boolean append) {
-        String csv   = parser.toCSV(row);
-        String[] parts = csv.split(",", -1);
-        String placeholders = String.join(",", java.util.Collections.nCopies(parts.length, "?"));
-        String sql = "INSERT INTO " + tableName + " VALUES (" + placeholders + ")";
-        try (var ps = conn.prepareStatement(sql)) {
-            for (int i = 0; i < parts.length; i++) {
-                ps.setString(i+1, parts[i]);
+
+    public void insert(T obj) {
+        String[] cols = binder.getColumns();
+        String colList = String.join(",", cols);
+        String placeholders = String.join(",", java.util.Collections.nCopies(cols.length, "?"));
+        String sql = "INSERT INTO " + tableName
+                + " (" + colList + ") VALUES (" + placeholders + ")";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            binder.bind(ps, obj);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("insert failed", ex);
+        }
+    }
+
+    public void update(String setClause,
+                       String whereClause,
+                       Object[] setParams,
+                       Object[] whereParams) {
+        String sql = "UPDATE " + tableName
+                + " SET " + setClause
+                + " WHERE " + whereClause;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            int idx = 1;
+            // bind SET parameters
+            for (Object o : setParams) {
+                ps.setObject(idx++, o);
+            }
+            // bind WHERE parameters
+            for (Object o : whereParams) {
+                ps.setObject(idx++, o);
             }
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            throw new RuntimeException("update failed", ex);
         }
     }
 
-    @Override
-    public void updateRows(Predicate<T> condition, T newData) {
-        throw new UnsupportedOperationException(
-                "For updates, write DAO methods using explicit WHERE clauses."
-        );
+    public void delete(String whereClause, Object... whereParams) {
+        String sql = "DELETE FROM " + tableName
+                + " WHERE " + whereClause;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (int i = 0; i < whereParams.length; i++) {
+                ps.setObject(i + 1, whereParams[i]);
+            }
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("delete failed", ex);
+        }
     }
 
-    @Override
-    public void deleteRows(Predicate<T> condition) {
-        throw new UnsupportedOperationException(
-                "For deletes, write DAO methods using explicit WHERE clauses."
-        );
-    }
 }
